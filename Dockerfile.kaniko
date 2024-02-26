@@ -1,0 +1,2 @@
+FROM 814200988517.dkr.ecr.us-west-2.amazonaws.com/base-image:java-jdk-17-agent-1.0.23
+RUN apt-get update
