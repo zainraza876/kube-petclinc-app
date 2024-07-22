@@ -2,6 +2,22 @@ pipeline {
     agent {
         kubernetes {
             label 'agent'
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: maven
+    image: maven:3.8.5-jdk-8
+    command:
+    - cat
+    tty: true
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    command:
+    - cat
+    tty: true
+"""
         }
     }
 
@@ -19,7 +35,7 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                container('maven:3.8.5-jdk-8') {
+                container('maven') {
                     sh 'mvn clean package'
                 }
             }
@@ -27,7 +43,7 @@ pipeline {
 
         stage('Build and Push Docker Image') {
             steps {
-                container('gcr.io/kaniko-project/executor:debug') {
+                container('kaniko') {
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USR', passwordVariable: 'DOCKER_HUB_PSW')]) {
                     script {
                             sh """
