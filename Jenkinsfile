@@ -1,5 +1,7 @@
 pipeline {
-    agent agent
+    agent {
+        label 'agent'
+    }
 
     environment {
         DOCKER_HUB_CREDS = credentials('docker-hub-credentials')
@@ -15,13 +17,12 @@ pipeline {
         }
 
         stage('Build Java Application') {
-            agent {
-                docker {
-                    image 'maven:3.8.4-openjdk-11'
-                }
-            }
             steps {
-                sh 'mvn clean package'
+                script {
+                    docker.image('maven:3.8.4-openjdk-11').inside {
+                        sh 'mvn clean package'
+                    }
+                }
             }
         }
 
