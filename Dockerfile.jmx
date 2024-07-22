@@ -1,5 +1,0 @@
-FROM techiescamp/jre-17:1.0.0
-COPY /target/*.jar /app/java.jar
-COPY *.jar /app/jmx.jar
-COPY config.yml /app/config.yml
-EXPOSE 8080
