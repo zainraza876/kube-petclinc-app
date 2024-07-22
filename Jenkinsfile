@@ -21,7 +21,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_HUB_REPO = "aswinvj/kube-petclinic"
+        DOCKER_HUB_REPO = "techiescamp/jenkins-java-app"
         IMAGE_TAG = "1.0.0"
     }
 
