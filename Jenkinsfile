@@ -35,6 +35,7 @@ pipeline {
                                 /kaniko/executor --dockerfile="/Dockerfile" --context `pwd` --destination ${DOCKER_HUB_REPO}:${IMAGE_TAG}
                             """
                         }
+                    }
                 }
             }
         }
