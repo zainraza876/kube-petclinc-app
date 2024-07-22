@@ -1,26 +1,22 @@
 pipeline {
     agent {
         kubernetes {
-            label 'agent'
-            defaultContainer 'maven'
-            yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  namespace: jenkins
-spec:
-  containers:
-  - name: maven
-    image: maven:3.8.5-jdk-8
-    command:
-    - cat
-    tty: true
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:debug
-    command:
-    - cat
-    tty: true
-"""
+            yaml '''
+                apiVersion: v1
+                kind: Pod
+                spec:
+                  containers:
+                  - name: maven
+                    image: maven:3.8.4-openjdk-11
+                    command:
+                    - cat
+                    tty: true
+                  - name: kaniko
+                    image: gcr.io/kaniko-project/executor:debug
+                    command:
+                    - /busybox/cat
+                    tty: true
+            '''
         }
     }
 
