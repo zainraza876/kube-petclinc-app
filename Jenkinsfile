@@ -22,15 +22,14 @@ pipeline {
                   volumes:
                   - name: maven-cache
                     hostPath:
-                      path: /var/lib/jenkins-cache/maven
-                      type: DirectoryOrCreate
+                        path: /home/jenkins/cache
             '''
         }
     }
 
     environment {
         DOCKER_HUB_REPO = "techiescamp/jenkins-java-app"
-        IMAGE_TAG = "1.0.0"
+        IMAGE_TAG = "2.0.0"
     }
 
     stages {
