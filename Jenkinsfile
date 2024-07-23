@@ -11,11 +11,19 @@ pipeline {
                     command:
                     - cat
                     tty: true
+                    volumeMounts:
+                    - name: maven-cache
+                      mountPath: /root/.m2
                   - name: kaniko
                     image: gcr.io/kaniko-project/executor:debug
                     command:
                     - /busybox/cat
                     tty: true
+                  volumes:
+                  - name: maven-cache
+                    hostPath:
+                      path: /var/lib/jenkins-cache/maven
+                      type: DirectoryOrCreate
             '''
         }
     }
@@ -35,7 +43,7 @@ pipeline {
         stage('Build with Maven') {
             steps {
                 container('maven') {
-                    sh 'mvn clean install -DskipTests'
+                    sh 'mvn -B -Dmaven.repo.local=/root/.m2/repository clean install -DskipTests'
                 }
             }
         }
