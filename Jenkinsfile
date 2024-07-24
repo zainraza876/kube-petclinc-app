@@ -22,7 +22,7 @@ pipeline {
                   volumes:
                   - name: maven-cache
                     hostPath:
-                        path: /home/jenkins/cache
+                        path: /home/jenkins/maven-cache
             '''
         }
     }
