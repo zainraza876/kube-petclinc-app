@@ -21,8 +21,8 @@ pipeline {
                     tty: true
                   volumes:
                   - name: maven-cache
-                    hostPath:
-                        path: /home/jenkins/maven-cache
+                    persistentVolumeClaim:
+                        claimName: efs-pvc
             '''
         }
     }
