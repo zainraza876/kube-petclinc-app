@@ -1,6 +1,6 @@
 pipeline {
     agent {
-       Docker { image "maven:3.8.4-openjdk-17"}
+       docker { image "maven:3.8.4-openjdk-17"}
     }
 
     environment {
@@ -16,10 +16,9 @@ pipeline {
         }
 
         stage('Build with Maven') {
-            steps {
-                container('maven') {
+            steps { 
                     sh 'mvn -B -Dmaven.repo.local=/root/.m2/repository clean install -DskipTests'
-                }
+                
             }
         }
 
